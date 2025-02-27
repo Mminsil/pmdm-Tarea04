@@ -13,6 +13,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="top|center"
+        android:contentDescription="@string/imagen_dragon"
         android:layout_marginTop="50dp"
         android:src="@drawable/spyro" />
 
@@ -47,6 +48,7 @@
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="50dp"
         android:background="@drawable/gems1"
+        android:contentDescription="@string/button_image"
         android:text="@string/start"
         android:textColor="@color/white" />
 

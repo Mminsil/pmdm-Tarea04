@@ -21,4 +21,8 @@
     <string name="label2_end_guideText">Pestaña Mundos</string>
     <string name="label3_end_guideText">Pestaña Coleccionables</string>
     <string name="mensagge">Ahora estás listo para explorar el mundo de Spyro. ¡Disfruta!</string>
+    <string name="button_image">"Imagen de diamante que simula un botón "</string>
+    <string name="imagen_dragon">Imagen del dragón Spyro</string>
+    <string name="next">Siguiente</string>
+    <string name="previus">Anterior</string>
 </resources>

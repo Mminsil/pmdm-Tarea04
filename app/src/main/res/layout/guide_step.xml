@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:gravity="start"
-                android:text="Anterior"
+                android:text="@string/previus"
                 android:textColor="@color/purple" />
 
             <Button
@@ -45,7 +45,7 @@
                 android:layout_weight="1"
                 android:background="@android:color/transparent"
                 android:gravity="end"
-                android:text="Siguiente"
+                android:text="@string/next"
                 android:textColor="@color/purple" />
         </LinearLayout>
     </LinearLayout>

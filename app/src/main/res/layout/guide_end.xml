@@ -13,6 +13,7 @@
         android:layout_width="200dp"
         android:layout_height="200dp"
         android:layout_gravity="top|center"
+        android:contentDescription="@string/imagen_dragon"
         android:layout_marginTop="50dp"
         android:src="@drawable/spyro" />
 
@@ -94,6 +95,7 @@
         android:id="@+id/end_guide_button"
         android:layout_width="100dp"
         android:layout_height="75dp"
+        android:contentDescription="@string/button_image"
         android:layout_gravity="bottom|center"
         android:layout_marginBottom="25dp"
         android:background="@drawable/gems1"
