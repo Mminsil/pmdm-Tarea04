@@ -3,23 +3,30 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@+id/navigation_characters">
+    app:startDestination="@id/navigation_characters">
 
     <fragment
         android:id="@+id/navigation_worlds"
         android:name="dam.pmdm.spyrothedragon.ui.WorldsFragment"
-        android:label="@string/worlds"
-        tools:layout="@layout/fragment_worlds" />
+    android:label="@string/worlds"
+    tools:layout="@layout/fragment_worlds" />
 
     <fragment
         android:id="@+id/navigation_characters"
         android:name="dam.pmdm.spyrothedragon.ui.CharactersFragment"
-        android:label="@string/characters"
-        tools:layout="@layout/fragment_characters" />
+    android:label="@string/characters"
+    tools:layout="@layout/fragment_characters" />
 
     <fragment
         android:id="@+id/navigation_collectibles"
         android:name="dam.pmdm.spyrothedragon.ui.CollectiblesFragment"
-        android:label="@string/collectibles"
-        tools:layout="@layout/fragment_collectibles" />
+    android:label="@string/collectibles"
+    tools:layout="@layout/fragment_collectibles" />
+
+    <!-- Definición del GuideStepFragment -->
+    <fragment
+        android:id="@+id/guideStepFragment"
+        android:name="dam.pmdm.spyrothedragon.ui.GuideStepFragment"
+    android:label="fragment_guide_step"
+    tools:layout="@layout/guide_step" />
 </navigation>

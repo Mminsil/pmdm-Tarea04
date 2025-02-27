@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/endLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/spyro_background_s"
+    android:clickable="true"
+    android:fitsSystemWindows="true"
+    android:focusable="true">
+
+    <ImageView
+        android:id="@+id/guide_image"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="50dp"
+        android:src="@drawable/spyro" />
+
+    <TextView
+        android:id="@+id/guide_tittle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:layout_marginTop="20dp"
+        android:text="@string/end_guide_tittle"
+        android:textColor="@color/white"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="225dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/guide_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/end_guideText"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/label1_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:padding="5dp"
+            android:text="@string/label1_end_guideText"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/label2_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:padding="5dp"
+            android:text="@string/label2_end_guideText"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/label3_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:padding="5dp"
+            android:text="@string/label3_end_guideText"
+            android:textColor="@color/white"
+            android:textSize="15sp"
+            android:textStyle="bold" />
+        <TextView
+            android:id="@+id/mensagge"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
+            android:gravity="center"
+            android:padding="15dp"
+            android:text="@string/mensagge"
+            android:textColor="@color/white"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+    </LinearLayout>
+
+    <ImageView
+        android:id="@+id/end_guide_button"
+        android:layout_width="100dp"
+        android:layout_height="75dp"
+        android:layout_gravity="bottom|center"
+        android:layout_marginBottom="25dp"
+        android:background="@drawable/gems1"
+        android:text="@string/start"
+        android:textColor="@color/white" />
+</FrameLayout>

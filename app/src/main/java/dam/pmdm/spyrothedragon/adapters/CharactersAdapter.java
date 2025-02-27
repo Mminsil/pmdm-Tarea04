@@ -16,9 +16,14 @@ import java.util.List;
 public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.CharactersViewHolder> {
 
     private List<Character> list;
+    private OnCharacterLongClickListener longClickListener;
 
-    public CharactersAdapter(List<Character> charactersList) {
+    public interface OnCharacterLongClickListener {
+        void onCharacterLongClick(Character character, ImageView imageView);
+    }
+    public CharactersAdapter(List<Character> charactersList, OnCharacterLongClickListener longClickListener) {
         this.list = charactersList;
+        this.longClickListener = longClickListener;
     }
 
     @Override
@@ -35,6 +40,14 @@ public class CharactersAdapter extends RecyclerView.Adapter<CharactersAdapter.Ch
         // Cargar la imagen (simulado con un recurso drawable)
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(character.getImage(), "drawable", holder.itemView.getContext().getPackageName());
         holder.imageImageView.setImageResource(imageResId);
+
+        // Detectamos la pulsación prolongada aquí
+        holder.itemView.setOnLongClickListener(v -> {
+            if (longClickListener != null) {
+                longClickListener.onCharacterLongClick(character, holder.imageImageView);
+            }
+            return true;
+        });
     }
 
     @Override

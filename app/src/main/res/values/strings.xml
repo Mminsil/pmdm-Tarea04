@@ -1,9 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SpyroTheDragon</string>
     <string name="worlds">Mundos</string>
     <string name="characters">Personajes</string>
     <string name="collectibles">Coleccionables</string>
     <string name="title_about">Acerca de</string>
-    <string name="text_about">Aplicación desarrollada por \n <b>Lindsay Barrero Martínez.</b></string>
+    <string name="text_about">Aplicación desarrollada por \n <b>Mariana Mincarelli Silvero.</b></string>
     <string name="accept">Aceptar</string>
+    <string name="start">Empezar</string>
+    <string name="skip_guide">Saltar Guía</string>
+    <string name="welcome">Bienvenidos</string>
+    <string name="guideText"> Prepárate para explorar el mundo mágico de esta aplicación.\n
+            Aquí aprenderás a navegar por pestañas llenas de dragones, mundos fascinantes y montones de tesoros.\n
+            ¿Listo para empezar?\nPulsa \"Start\" y deja que Spiro te lleve volando a través de esta guía interactiva.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="end_guide_tittle">¡Has completado la guía!</string>
+    <string name="end_guideText">Ya sabes usar la app y puedes moverte por las diferentes pestañas para disfrutarla:</string>
+    <string name="label1_end_guideText">Pestaña Personajes</string>
+    <string name="label2_end_guideText">Pestaña Mundos</string>
+    <string name="label3_end_guideText">Pestaña Coleccionables</string>
+    <string name="mensagge">Ahora estás listo para explorar el mundo de Spyro. ¡Disfruta!</string>
 </resources>

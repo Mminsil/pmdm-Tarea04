@@ -1,8 +1,15 @@
 package dam.pmdm.spyrothedragon;
 
+import android.animation.AnimatorSet;
+import android.animation.ObjectAnimator;
+import android.animation.ValueAnimator;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.animation.BounceInterpolator;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
@@ -12,18 +19,41 @@ import androidx.navigation.NavController;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
+
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideEndBinding;
+import dam.pmdm.spyrothedragon.databinding.GuideStepBinding;
+import dam.pmdm.spyrothedragon.ui.GuideStepFragment;
 
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
     NavController navController = null;
+    private Boolean showGuide = true;
+    private GuideBinding guideBinding;
+    private GuideEndBinding guideEndBinding;
+    private GuideStepBinding guideStepBinding;
+    private int currentStep = 1;
+    private Menu aboutMenu;
+    Fragment guideFragment;
+
+
+    //Preferencias para enseñar la guía o no
+    private static final String PREFS_NAME = "MyAppPreferences";
+    private static final String KEY_SHOW_GUIDE = "showGuide";
+    private SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
+
+        guideBinding = binding.includeGuideLayout;
+        guideEndBinding = binding.includeGuideEndLayout;
         setContentView(binding.getRoot());
 
         Fragment navHostFragment = getSupportFragmentManager().findFragmentById(R.id.navHostFragment);
@@ -48,6 +78,149 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+
+
+        //Comprobar las preferencias para saber si enseñar la Guia
+
+        // Obtener la instancia de SharedPreferences
+        sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
+        // Verificar si se debe mostrar la guía
+        showGuide = sharedPreferences.getBoolean(KEY_SHOW_GUIDE, true);
+//        SharedPreferences.Editor editor = sharedPreferences.edit();
+//        editor.putBoolean(KEY_SHOW_GUIDE, true);
+//        editor.apply();
+
+        showGuide = true;
+
+        if (showGuide) {
+            initializeGuide();
+        }
+    }
+
+    private void initializeGuide() {
+        guideBinding.skipGuide.setOnClickListener(this::onSkipGuide);
+        guideBinding.guideLayout.setVisibility(View.VISIBLE);
+        guideEndBinding.endLayout.setVisibility(View.GONE);
+        getSupportActionBar().hide();
+
+        applyButtonAnimation(guideBinding.startGuideButton);
+
+        guideBinding.startGuideButton.setOnClickListener(this::startGuide);
+
+        //actualizar las preferencias para que no se vuelva a enseñar la guía
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean(KEY_SHOW_GUIDE, false);
+        editor.apply();
+    }
+
+    private void startGuide(View view) {
+        guideBinding.guideLayout.setVisibility(View.GONE);
+        getSupportActionBar().show();
+        currentStep = 2;
+        showGuideStep(currentStep);
+    }
+
+    private void showGuideStep(int currentStep) {
+        String message;
+        switch (currentStep) {
+            case 2:
+                message = "Aquí podrás explorar a todos los personajes del mundo de Spyro.\n" +
+                        "Estos son los diferentes personajes con habilidades únicas para tus aventuras.";
+                break;
+            case 3:
+                message = "Aquí podrás explorar los mundos disponibles para tus aventuras.\n" +
+                        "Cada mundo ofrece desafíos únicos y emocionantes.";
+                selectBottomMenuItem(R.id.navigation_worlds);
+                break;
+            case 4:
+                message = "Estos son los coleccionables que puedes encontrar durante el juego.\n" +
+                        "¡Encuéntralos todos para desbloquear contenido especial!";
+                selectBottomMenuItem(R.id.navigation_collectibles);
+                break;
+            case 5:
+                message = "Este icono proporciona información útil sobre la aplicación.\n" +
+                        "¡Toca para descubrir más!";
+                simulateActionBarIconClick(R.id.action_info);
+                break;
+
+            default:
+                return;
+        }
+
+
+        GuideStepFragment guideFragment = GuideStepFragment.newInstance(message, currentStep);
+        guideFragment.show(getSupportFragmentManager(), "GuideStepFragment");
+    }
+
+    public void nextGuideStep(int currentStep) {
+        getSupportFragmentManager().popBackStack(); // Remover el fragmento actual de la guía
+        this.currentStep = currentStep + 1;
+
+        if (this.currentStep == 6) {
+            showEndGuide();
+            return;
+        }
+
+        // Mostrar siguiente paso o finalizar guía
+        if (this.currentStep <= 6) {
+            showGuideStep(this.currentStep);
+        }
+    }
+
+    public void showEndGuide() {
+        guideEndBinding.endLayout.setVisibility(View.VISIBLE);
+        guideBinding.guideLayout.setVisibility(View.GONE);
+
+        applyButtonAnimation(guideEndBinding.endGuideButton);
+
+        // Ocultar la barra de acción
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().hide();
+        }
+
+        guideEndBinding.endGuideButton.setOnClickListener(this::closeGuide);
+    }
+
+    private void closeGuide(View view) {
+        guideBinding.guideLayout.setVisibility(View.GONE);
+        guideEndBinding.getRoot().setVisibility(View.GONE);
+        getSupportFragmentManager().popBackStack();
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().show();
+        }
+    }
+
+    private void applyButtonAnimation(ImageView button) {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, 0.5f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(button, "alpha", 0f, 1f);
+
+        // Configurar la repetición
+        scaleX.setRepeatCount(ValueAnimator.INFINITE);
+        scaleX.setRepeatMode(ValueAnimator.REVERSE);
+        scaleY.setRepeatCount(ValueAnimator.INFINITE);
+        scaleY.setRepeatMode(ValueAnimator.REVERSE);
+
+        // Crear el AnimatorSet
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(scaleX, scaleY, fadeIn);
+        animatorSet.setDuration(1000);
+        animatorSet.start();
+    }
+
+
+
+
+    public void previousGuideStep(int currentStep) {
+        if (currentStep > 1) {
+            getSupportFragmentManager().popBackStack(); // Remover el fragmento actual de la guía
+            this.currentStep = currentStep - 1;
+            showGuideStep(this.currentStep);
+        }
+    }
+
+    private void onSkipGuide(View view) {
+        guideBinding.guideLayout.setVisibility(View.GONE);
     }
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
@@ -64,7 +237,6 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        // Infla el menú
         getMenuInflater().inflate(R.menu.about_menu, menu);
         return true;
     }
@@ -88,6 +260,53 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
+    public void selectBottomMenuItem(int itemId) {
+        runOnUiThread(() -> {
+            if (navController != null) {
+                navController.navigate(itemId);
+            }
+        });
+    }
 
+
+
+    public void selectMenuItem(int itemId) {
+        if (aboutMenu != null) {
+            MenuItem item = aboutMenu.findItem(itemId);
+            if (item != null) onOptionsItemSelected(item);
+        }
+    }
+
+    private void simulateActionBarIconClick(int itemId) {
+        final View decorView = getWindow().getDecorView();
+        decorView.post(() -> {
+            View actionBarIconView = decorView.findViewById(itemId);
+            if (actionBarIconView != null) {
+                applyIconAnimation(actionBarIconView);  // Animación al icono
+            }
+        });
+    }
+
+    private void applyIconAnimation(View view) {
+        // Escalado con rebote
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(view, "scaleX", 1f, 1.5f, 1f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(view, "scaleY", 1f, 1.5f, 1f);
+
+        // Rotación completa
+        ObjectAnimator rotation = ObjectAnimator.ofFloat(view, "rotation", 0f, 360f);
+
+        // Efecto de brillo (alpha)
+        ObjectAnimator fadeInOut = ObjectAnimator.ofFloat(view, "alpha", 1f, 0.3f, 1f);
+
+        // Rebote con interpolador
+        scaleX.setInterpolator(new BounceInterpolator());
+        scaleY.setInterpolator(new BounceInterpolator());
+
+        // Todos juntos
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(scaleX, scaleY, rotation, fadeInOut);
+        animatorSet.setDuration(1500);
+        animatorSet.start();
+    }
 
 }

@@ -1,6 +1,8 @@
 package dam.pmdm.spyrothedragon.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,6 +30,8 @@ public class CollectiblesFragment extends Fragment {
     private RecyclerView recyclerView;
     private CollectiblesAdapter adapter;
     private List<Collectible> collectiblesList;
+    private int gemClickCount = 0;
+    private long lastClickTime = 0;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -36,11 +40,32 @@ public class CollectiblesFragment extends Fragment {
         recyclerView = binding.recyclerViewCollectibles;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         collectiblesList = new ArrayList<>();
-        adapter = new CollectiblesAdapter(collectiblesList);
+        adapter = new CollectiblesAdapter(collectiblesList, this::handleCollectibleClick);
         recyclerView.setAdapter(adapter);
 
         loadCollectibles();
         return binding.getRoot();
+    }
+
+    private void handleCollectibleClick(Collectible collectible) {
+        if ("Gemas".equalsIgnoreCase(collectible.getName())) {
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastClickTime < 1000) {  // 1 segundo de margen entre clics
+                gemClickCount++;
+                if (gemClickCount == 4) {
+                    gemClickCount = 0;
+                    startEasterEggActivity();
+                }
+            } else {
+                gemClickCount = 1;
+            }
+            lastClickTime = currentTime;
+        }
+    }
+
+    private void startEasterEggActivity() {
+        Intent intent = new Intent(getContext(), EasterEggActivity.class);
+        startActivity(intent);
     }
 
     @Override

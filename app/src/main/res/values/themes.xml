@@ -10,4 +10,11 @@
         <item name="android:windowSplashScreenAnimatedIcon">@drawable/splash</item>
 
     </style>
+
+    <style name="TransparentFragmentTheme" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
+
+
 </resources>

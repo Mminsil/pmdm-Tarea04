@@ -1,9 +1,12 @@
 package dam.pmdm.spyrothedragon.ui;
 
+import android.graphics.drawable.AnimationDrawable;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -16,6 +19,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Handler;
 
 import dam.pmdm.spyrothedragon.R;
 import dam.pmdm.spyrothedragon.models.Character;
@@ -26,21 +30,25 @@ import dam.pmdm.spyrothedragon.databinding.FragmentCharactersBinding;
 public class CharactersFragment extends Fragment {
 
     private FragmentCharactersBinding binding;
-
     private RecyclerView recyclerView;
     private CharactersAdapter adapter;
     private List<Character> charactersList;
+    private AnimationDrawable animation;
+    private MediaPlayer mediaPlayer;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentCharactersBinding.inflate(inflater, container, false);
+
+
         // Inicializamos el RecyclerView y el adaptador
         recyclerView = binding.recyclerViewCharacters;
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         charactersList = new ArrayList<>();
-        adapter = new CharactersAdapter(charactersList);
+        adapter = new CharactersAdapter(charactersList, this::handleCharacterLongClick);
         recyclerView.setAdapter(adapter);
+
 
         // Cargamos los personajes desde el XML
         loadCharacters();
@@ -52,6 +60,30 @@ public class CharactersFragment extends Fragment {
         super.onDestroyView();
         binding = null;
     }
+
+    private void handleCharacterLongClick(Character character, ImageView imageView) {
+        if ("Spyro".equalsIgnoreCase(character.getName())) {
+            // Quitar imagen original antes de la animación
+            imageView.setImageDrawable(null);
+
+            // Iniciar animación
+            imageView.setBackgroundResource(R.drawable.fire_animation);
+            animation = (AnimationDrawable) imageView.getBackground();
+            animation.start();
+
+            // Iniciar sonido
+            mediaPlayer = MediaPlayer.create(getContext(), R.raw.fire);
+            mediaPlayer.start();
+
+            // Restaurar imagen original después de la animación
+            imageView.postDelayed(() -> {
+                animation.stop();
+                imageView.setBackground(null);
+                imageView.setImageResource(R.drawable.spyro);
+            }, 2000);
+        }
+    }
+
 
     private void loadCharacters() {
         try {

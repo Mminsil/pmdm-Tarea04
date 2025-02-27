@@ -16,9 +16,17 @@ import dam.pmdm.spyrothedragon.models.Collectible;
 public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapter.CollectiblesViewHolder> {
 
     private List<Collectible> list;
+    private OnItemClickListener listener;
 
-    public CollectiblesAdapter(List<Collectible> collectibleList) {
+    //  Interfaz para manejar el clic
+    public interface OnItemClickListener {
+        void onItemClick(Collectible collectible);
+    }
+
+    //  Constructor actualizado
+    public CollectiblesAdapter(List<Collectible> collectibleList, OnItemClickListener listener) {
         this.list = collectibleList;
+        this.listener = listener;
     }
 
     @Override
@@ -35,6 +43,8 @@ public class CollectiblesAdapter extends RecyclerView.Adapter<CollectiblesAdapte
         // Cargar la imagen (simulado con un recurso drawable)
         int imageResId = holder.itemView.getContext().getResources().getIdentifier(collectible.getImage(), "drawable", holder.itemView.getContext().getPackageName());
         holder.imageImageView.setImageResource(imageResId);
+
+        holder.itemView.setOnClickListener(v -> listener.onItemClick(collectible));
     }
 
     @Override

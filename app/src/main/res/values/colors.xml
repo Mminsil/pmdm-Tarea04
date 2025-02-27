@@ -7,4 +7,6 @@
     <color name="yellow2">#88ffffff</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
+    <color name="yellow_transparent">#77fbdf6a</color>
+
 </resources>
