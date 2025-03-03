@@ -18,6 +18,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.NavController;
+import androidx.navigation.NavOptions;
 import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
@@ -200,12 +201,28 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
         menuItem.setChecked(true);
-        if (menuItem.getItemId() == R.id.nav_characters)
-            navController.navigate(R.id.navigation_characters);
-        else if (menuItem.getItemId() == R.id.nav_worlds)
-            navController.navigate(R.id.navigation_worlds);
-        else
-            navController.navigate(R.id.navigation_collectibles);
+
+        if (navController != null) {
+            int destinationId;
+
+            if (menuItem.getItemId() == R.id.nav_characters) {
+                destinationId = R.id.navigation_characters;
+            } else if (menuItem.getItemId() == R.id.nav_worlds) {
+                destinationId = R.id.navigation_worlds;
+            } else {
+                destinationId = R.id.navigation_collectibles;
+            }
+
+            // Configuramos las opciones de navegación con animaciones
+            NavOptions navOptions = new NavOptions.Builder()
+                    .setEnterAnim(R.anim.slide_in_right)
+                    .setExitAnim(R.anim.slide_out_left)
+                    .setPopEnterAnim(R.anim.slide_in_left)
+                    .setPopExitAnim(R.anim.slide_out_right)
+                    .build();
+
+            navController.navigate(destinationId, null, navOptions);
+        }
         return true;
     }
 
