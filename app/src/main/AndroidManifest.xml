@@ -22,6 +22,10 @@
 
         <activity android:name=".ui.EasterEggActivity"
             android:theme="@style/Theme.AppCompat.NoActionBar" />
+
+        <service android:name=".ui.MusicService"
+            android:enabled="true"
+            android:exported="false"/>
     </application>
 
 </manifest>

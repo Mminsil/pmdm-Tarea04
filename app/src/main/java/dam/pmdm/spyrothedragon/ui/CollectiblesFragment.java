@@ -1,6 +1,7 @@
 package dam.pmdm.spyrothedragon.ui;
 
 import android.content.Intent;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -50,7 +51,7 @@ public class CollectiblesFragment extends Fragment {
     private void handleCollectibleClick(Collectible collectible) {
         if ("Gemas".equalsIgnoreCase(collectible.getName())) {
             long currentTime = System.currentTimeMillis();
-            if (currentTime - lastClickTime < 1000) {  // 1 segundo de margen entre clics
+            if (currentTime - lastClickTime < 1000) {
                 gemClickCount++;
                 if (gemClickCount == 4) {
                     gemClickCount = 0;
@@ -64,6 +65,23 @@ public class CollectiblesFragment extends Fragment {
     }
 
     private void startEasterEggActivity() {
+        MediaPlayer mediaPlayer = MediaPlayer.create(getContext(), R.raw.gema);
+
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+
+            // Esperar a que el sonido termine antes de abrir la actividad
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release();
+                openEasterEggActivity();
+            });
+        } else {
+            openEasterEggActivity();
+        }
+
+    }
+
+    private void openEasterEggActivity() {
         Intent intent = new Intent(getContext(), EasterEggActivity.class);
         startActivity(intent);
     }

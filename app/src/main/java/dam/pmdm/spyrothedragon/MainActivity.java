@@ -3,7 +3,9 @@ package dam.pmdm.spyrothedragon;
 import android.animation.AnimatorSet;
 import android.animation.ObjectAnimator;
 import android.animation.ValueAnimator;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -20,26 +22,19 @@ import androidx.navigation.fragment.NavHostFragment;
 import androidx.navigation.ui.NavigationUI;
 
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
-
 import dam.pmdm.spyrothedragon.databinding.ActivityMainBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideBinding;
 import dam.pmdm.spyrothedragon.databinding.GuideEndBinding;
-import dam.pmdm.spyrothedragon.databinding.GuideStepBinding;
 import dam.pmdm.spyrothedragon.ui.GuideStepFragment;
+import dam.pmdm.spyrothedragon.ui.MusicService;
 
 public class MainActivity extends AppCompatActivity {
-
     private ActivityMainBinding binding;
     NavController navController = null;
     private Boolean showGuide = true;
     private GuideBinding guideBinding;
     private GuideEndBinding guideEndBinding;
-    private GuideStepBinding guideStepBinding;
     private int currentStep = 1;
-    private Menu aboutMenu;
-    Fragment guideFragment;
-
 
     //Preferencias para enseñar la guía o no
     private static final String PREFS_NAME = "MyAppPreferences";
@@ -71,29 +66,28 @@ public class MainActivity extends AppCompatActivity {
                     destination.getId() == R.id.navigation_collectibles) {
                 // Para las pantallas de los tabs, no queremos que aparezca la flecha de atrás
                 getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-            }
-            else {
+            } else {
                 // Si se navega a una pantalla donde se desea mostrar la flecha de atrás, habilítala
                 getSupportActionBar().setDisplayHomeAsUpEnabled(true);
             }
         });
 
+        // Iniciar música de fondo
+        startService(new Intent(this, MusicService.class));
 
-
-        //Comprobar las preferencias para saber si enseñar la Guia
-
+        //------Comprobar las preferencias para saber si enseñar la Guia
         // Obtener la instancia de SharedPreferences
         sharedPreferences = getSharedPreferences(PREFS_NAME, MODE_PRIVATE);
         // Verificar si se debe mostrar la guía
         showGuide = sharedPreferences.getBoolean(KEY_SHOW_GUIDE, true);
-//        SharedPreferences.Editor editor = sharedPreferences.edit();
-//        editor.putBoolean(KEY_SHOW_GUIDE, true);
-//        editor.apply();
 
-        showGuide = true;
+        //showGuide = true;
 
         if (showGuide) {
             initializeGuide();
+        } else {
+            guideEndBinding.endLayout.setVisibility(View.GONE);
+            guideBinding.guideLayout.setVisibility(View.GONE);
         }
     }
 
@@ -103,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
         guideEndBinding.endLayout.setVisibility(View.GONE);
         getSupportActionBar().hide();
 
-        applyButtonAnimation(guideBinding.startGuideButton);
+        applyGuideButtonStarAnimation(guideBinding.startGuideButton);
 
         guideBinding.startGuideButton.setOnClickListener(this::startGuide);
 
@@ -113,11 +107,20 @@ public class MainActivity extends AppCompatActivity {
         editor.apply();
     }
 
+    private void onSkipGuide(View view) {
+        playSkipSound(() -> {
+            guideBinding.guideLayout.setVisibility(View.GONE);
+        });
+    }
+
     private void startGuide(View view) {
-        guideBinding.guideLayout.setVisibility(View.GONE);
-        getSupportActionBar().show();
-        currentStep = 2;
-        showGuideStep(currentStep);
+        playStartSound(() -> {
+            guideBinding.guideLayout.setVisibility(View.GONE);
+            getSupportActionBar().show();
+            currentStep = 2;
+            showGuideStep(currentStep);
+        });
+
     }
 
     private void showGuideStep(int currentStep) {
@@ -130,39 +133,42 @@ public class MainActivity extends AppCompatActivity {
             case 3:
                 message = "Aquí podrás explorar los mundos disponibles para tus aventuras.\n" +
                         "Cada mundo ofrece desafíos únicos y emocionantes.";
-                selectBottomMenuItem(R.id.navigation_worlds);
                 break;
             case 4:
                 message = "Estos son los coleccionables que puedes encontrar durante el juego.\n" +
                         "¡Encuéntralos todos para desbloquear contenido especial!";
-                selectBottomMenuItem(R.id.navigation_collectibles);
                 break;
             case 5:
                 message = "Este icono proporciona información útil sobre la aplicación.\n" +
                         "¡Toca para descubrir más!";
-                simulateActionBarIconClick(R.id.action_info);
+                actionBarSimulateIconClickAnimarion(R.id.action_info);
                 break;
-
             default:
                 return;
         }
-
-
+        //Abrimos el GuideStepFragment para los pasos de la guía
         GuideStepFragment guideFragment = GuideStepFragment.newInstance(message, currentStep);
         guideFragment.show(getSupportFragmentManager(), "GuideStepFragment");
     }
 
     public void nextGuideStep(int currentStep) {
-        getSupportFragmentManager().popBackStack(); // Remover el fragmento actual de la guía
+        // Remover el fragmento actual de la guía
+        getSupportFragmentManager().popBackStack();
         this.currentStep = currentStep + 1;
-
         if (this.currentStep == 6) {
             showEndGuide();
             return;
         }
-
         // Mostrar siguiente paso o finalizar guía
         if (this.currentStep <= 6) {
+            showGuideStep(this.currentStep);
+        }
+    }
+
+    public void previousGuideStep(int currentStep) {
+        getSupportFragmentManager().popBackStack();
+        if (currentStep > 1) {
+            this.currentStep = currentStep - 1;
             showGuideStep(this.currentStep);
         }
     }
@@ -171,68 +177,40 @@ public class MainActivity extends AppCompatActivity {
         guideEndBinding.endLayout.setVisibility(View.VISIBLE);
         guideBinding.guideLayout.setVisibility(View.GONE);
 
-        applyButtonAnimation(guideEndBinding.endGuideButton);
+        applyGuideButtonStarAnimation(guideEndBinding.endGuideButton);
 
         // Ocultar la barra de acción
         if (getSupportActionBar() != null) {
             getSupportActionBar().hide();
         }
 
-        guideEndBinding.endGuideButton.setOnClickListener(this::closeGuide);
+        guideEndBinding.endGuideButton.setOnClickListener(this::closeEndGuide);
     }
 
-    private void closeGuide(View view) {
-        guideBinding.guideLayout.setVisibility(View.GONE);
-        guideEndBinding.getRoot().setVisibility(View.GONE);
-        getSupportFragmentManager().popBackStack();
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().show();
-        }
-    }
-
-    private void applyButtonAnimation(ImageView button) {
-        ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0.5f);
-        ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, 0.5f);
-        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(button, "alpha", 0f, 1f);
-
-        // Configurar la repetición
-        scaleX.setRepeatCount(ValueAnimator.INFINITE);
-        scaleX.setRepeatMode(ValueAnimator.REVERSE);
-        scaleY.setRepeatCount(ValueAnimator.INFINITE);
-        scaleY.setRepeatMode(ValueAnimator.REVERSE);
-
-        // Crear el AnimatorSet
-        AnimatorSet animatorSet = new AnimatorSet();
-        animatorSet.playTogether(scaleX, scaleY, fadeIn);
-        animatorSet.setDuration(1000);
-        animatorSet.start();
-    }
-
-
-
-
-    public void previousGuideStep(int currentStep) {
-        if (currentStep > 1) {
-            getSupportFragmentManager().popBackStack(); // Remover el fragmento actual de la guía
-            this.currentStep = currentStep - 1;
-            showGuideStep(this.currentStep);
-        }
-    }
-
-    private void onSkipGuide(View view) {
-        guideBinding.guideLayout.setVisibility(View.GONE);
+    void closeEndGuide(View view) {
+        playStartSound(() -> {
+            guideBinding.guideLayout.setVisibility(View.GONE);
+            guideEndBinding.getRoot().setVisibility(View.GONE);
+            getSupportFragmentManager().popBackStack();
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().show();
+            }
+        });
     }
 
     private boolean selectedBottomMenu(@NonNull MenuItem menuItem) {
+        menuItem.setChecked(true);
         if (menuItem.getItemId() == R.id.nav_characters)
             navController.navigate(R.id.navigation_characters);
-        else
-        if (menuItem.getItemId() == R.id.nav_worlds)
+        else if (menuItem.getItemId() == R.id.nav_worlds)
             navController.navigate(R.id.navigation_worlds);
         else
             navController.navigate(R.id.navigation_collectibles);
         return true;
+    }
 
+    public void selectBottomMenuItem(int itemId) {
+        binding.navView.setSelectedItemId(itemId);
     }
 
     @Override
@@ -260,29 +238,31 @@ public class MainActivity extends AppCompatActivity {
                 .show();
     }
 
-    public void selectBottomMenuItem(int itemId) {
-        runOnUiThread(() -> {
-            if (navController != null) {
-                navController.navigate(itemId);
-            }
-        });
+    //--------- Animaciones y Efectos de sonidos-----------------
+    private void applyGuideButtonStarAnimation(ImageView button) {
+        ObjectAnimator scaleX = ObjectAnimator.ofFloat(button, "scaleX", 1f, 0.5f);
+        ObjectAnimator scaleY = ObjectAnimator.ofFloat(button, "scaleY", 1f, 0.5f);
+        ObjectAnimator fadeIn = ObjectAnimator.ofFloat(button, "alpha", 0f, 1f);
+
+        // Configurar la repetición
+        scaleX.setRepeatCount(ValueAnimator.INFINITE);
+        scaleX.setRepeatMode(ValueAnimator.REVERSE);
+        scaleY.setRepeatCount(ValueAnimator.INFINITE);
+        scaleY.setRepeatMode(ValueAnimator.REVERSE);
+
+        // Crear el AnimatorSet
+        AnimatorSet animatorSet = new AnimatorSet();
+        animatorSet.playTogether(scaleX, scaleY, fadeIn);
+        animatorSet.setDuration(1000);
+        animatorSet.start();
     }
 
-
-
-    public void selectMenuItem(int itemId) {
-        if (aboutMenu != null) {
-            MenuItem item = aboutMenu.findItem(itemId);
-            if (item != null) onOptionsItemSelected(item);
-        }
-    }
-
-    private void simulateActionBarIconClick(int itemId) {
+    private void actionBarSimulateIconClickAnimarion(int itemId) {
         final View decorView = getWindow().getDecorView();
         decorView.post(() -> {
             View actionBarIconView = decorView.findViewById(itemId);
             if (actionBarIconView != null) {
-                applyIconAnimation(actionBarIconView);  // Animación al icono
+                applyIconAnimation(actionBarIconView);
             }
         });
     }
@@ -309,4 +289,29 @@ public class MainActivity extends AppCompatActivity {
         animatorSet.start();
     }
 
+    private void playStartSound(Runnable action) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.start);
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release();
+                action.run();
+            });
+        } else {
+            action.run();
+        }
+    }
+
+    private void playSkipSound(Runnable action) {
+        MediaPlayer mediaPlayer = MediaPlayer.create(this, R.raw.cerrar);
+        if (mediaPlayer != null) {
+            mediaPlayer.start();
+            mediaPlayer.setOnCompletionListener(mp -> {
+                mp.release();
+                action.run();
+            });
+        } else {
+            action.run();
+        }
+    }
 }

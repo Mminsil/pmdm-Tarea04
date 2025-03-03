@@ -5,16 +5,16 @@
     android:layout_height="match_parent"
     android:background="@drawable/spyro_background_s"
     android:clickable="true"
-    android:focusable="true"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    android:focusable="true">
 
     <ImageView
         android:id="@+id/guide_image"
         android:layout_width="150dp"
         android:layout_height="150dp"
         android:layout_gravity="top|center"
-        android:contentDescription="@string/imagen_dragon"
         android:layout_marginTop="50dp"
+        android:contentDescription="@string/imagen_dragon"
         android:src="@drawable/spyro" />
 
     <TextView

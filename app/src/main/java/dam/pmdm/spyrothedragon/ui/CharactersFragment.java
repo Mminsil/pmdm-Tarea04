@@ -19,7 +19,6 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Handler;
 
 import dam.pmdm.spyrothedragon.R;
 import dam.pmdm.spyrothedragon.models.Character;

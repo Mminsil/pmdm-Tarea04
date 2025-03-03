@@ -1,5 +1,6 @@
 package dam.pmdm.spyrothedragon.ui;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.annotation.Nullable;
@@ -17,10 +18,23 @@ public class EasterEggActivity extends AppCompatActivity {
         binding = ActivityEasterEggBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        binding.videoView.setVideoPath("android.resource://" +getPackageName()+"/" + R.raw.spyro);
+        changeMusicVolume(0.1f);
+        binding.videoView.setVideoPath("android.resource://" + getPackageName() + "/" + R.raw.spyro);
         binding.videoView.start();
 
-        // 🎯 🔄 Cerrar activity al terminar el vídeo
+        //Cerrar activity al terminar el vídeo
         binding.videoView.setOnCompletionListener(mp -> finish());
+    }
+
+    private void changeMusicVolume(float v) {
+        Intent intent = new Intent(this, MusicService.class);
+        intent.putExtra("VOLUME", v);
+        startService(intent);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        changeMusicVolume(0.5f);
     }
 }
