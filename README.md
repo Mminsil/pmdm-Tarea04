@@ -37,7 +37,7 @@ Esta es una aplicación móvil que permite a los usuarios conocer todo sobre el 
   Al hacer click en el botón "start" se cerrará la guía y el usuario puede comenzar a usar la app.
   
 - La aplicación tiene 3 pestañas:
-  1. **Pestaña Personajes:** Con toda la información de los personajes del mundo Spyro.
+1. **Pestaña Personajes:** Con toda la información de los personajes del mundo Spyro.
    
      ![Pestaña Personajes](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231725.png?raw=true)
      
@@ -45,11 +45,11 @@ Esta es una aplicación móvil que permite a los usuarios conocer todo sobre el 
      
      ![Spyro echando fuego](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231725.png?raw=true)
      
-  2. **Pestaña Mundos:** Con un listado de los mundos de Spyro
+2. **Pestaña Mundos:** Con un listado de los mundos de Spyro
      
      ![Pestaña Mundos](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231705.png?raw=true)
      
-  3. **Pestaña Coleccionables:** Con los coleccionables que podemos obtener
+3. **Pestaña Coleccionables:** Con los coleccionables que podemos obtener
      
      ![Pestaña Coleccionables](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231712.png?raw=true)
      
