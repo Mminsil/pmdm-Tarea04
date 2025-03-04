@@ -76,3 +76,4 @@ El proyecto utiliza las siguientes tecnologías y herramientas:
 ## Conclusiones del desarrollador
 Con este proyecto me costó mucho llegar a entender cómo hacer las pantallas de la guía. Poner animaciones y sonidos es muy entretenido y divertido. Me faltó ponerle un botón para apagar la cancioncita de fondo que se me ocurrió ponerle, ¡y falta que me hacía! 
 Este proyecto, por razones de tiempo, lo entragaré sin JavaDoc, pero seguramente lo termine poniendo más adelante porque después no me voy a acordar nada de lo que hice. Cuando agarre la app dentro de un par de semanas me preguntaré: ¿Esto lo hice yo de verdad? porque son muchas cosas y no retengo todo :-D
+Las transacciones entre pestañas se me olvidó ponerla antes de grabar el vídeo y las puse después por eso no salen.
