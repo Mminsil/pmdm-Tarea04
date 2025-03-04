@@ -4,7 +4,6 @@
 
 
 ## Introducción
----
 Esta es una aplicación móvil que permite a los usuarios conocer todo sobre el dragón **Spyro**: sus personajes, sus mundos y los coleccionables.
 
 
