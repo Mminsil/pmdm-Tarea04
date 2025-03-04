@@ -1,6 +1,6 @@
 # Spyro the Dragon App
 
-![Image de la SplashScreen de la app](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231649.png?raw=true "SplashScreen de la App")
+![Image de la SplashScreen de la app](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231649.png?raw=true)
 
 
 ## Introducción
@@ -11,43 +11,43 @@ Esta es una aplicación móvil que permite a los usuarios conocer todo sobre el 
 
 - Tiene una guía que nos recorre cada pestaña de la app explicando el contenido de cada una. La guía solo aparecerá cuando el usuario abre por primera vez la aplicación. En todas las pantallas de la misma puede elegir la opción "Saltar duía".
   Esta es la pantalla de comienzo de la guía:
-  ![Pantalla inicio de la guía](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231834.png?raw=true "Pantalla de inicio de la guía")
+  ![Pantalla inicio de la guía](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231834.png?raw=true)
   Al pulsar el botón "Start" se abrirá los diferentes pasos de la guía:
-  ![Paso 1](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231844.png?raw=true "Paso 1 de la guía")
+  ![Paso 1](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231844.png?raw=true)
   Cuando el usuario da al botón "Siguiente" aparecerá el segundo paso de la guía:
-   ![Paso 2](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231854.png?raw=true "Paso 2 de la guía")
+   ![Paso 2](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231854.png?raw=true)
   El usuario debe clicar nuevamente en "Siguiente" para continuar con el paso 3:
-  ![Paso 3](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231902.png?raw=true "Paso 3 de la guía")
+  ![Paso 3](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231902.png?raw=true)
   El usuario debe hacer click en "Siguiente" para el paso 4:
-  ![Paso 4](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231910.png?raw=true "Paso 4 de la guía")
+  ![Paso 4](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231910.png?raw=true)
   Y por último clicar en Finalizar y aparecerá la pantalla final de la guía:
-   ![Paso 5](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231921.png?raw=true "Paso 5 de la guía")
+   ![Paso 5](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231921.png?raw=true)
   Al hacer click en el botón "start" se cerrará la guía y el usuario puede comenzar a usar la app.
   
 - La aplicación tiene 3 pestañas:
   1. **Pestaña Personajes:** Con toda la información de los personajes del mundo Spyro.
    
-     ![Pestaña Personajes](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231725.png?raw=true "Pestaña Personajes")
+     ![Pestaña Personajes](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231725.png?raw=true)
      
      Si dejamos pulsado el clic izquierdo del ratón sobre Spyro: ¡nos escupirá fuego! Ten cuidado de no quemarte 😆
      
-     ![Spyro echando fuego](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231725.png?raw=true "Spyro echando fuego")
+     ![Spyro echando fuego](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231725.png?raw=true)
      
   2. **Pestaña Mundos:** Con un listado de los mundos de Spyro
      
-     ![Pestaña Mundos](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231705.png?raw=true "Pestaña Mundos")
+     ![Pestaña Mundos](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231705.png?raw=true)
      
   3. **Pestaña Coleccionables:** Con los coleccionables que podemos obtener
      
-     ![Pestaña Coleccionables](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231712.png?raw=true "Pestaña Coleccionables")
+     ![Pestaña Coleccionables](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231712.png?raw=true)
      
      Si hacenmos 4 clics sobre la Gema podremos ver un vídeo sobre Spyro
      
-     ![Imagen vídeo Syro](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231939.png?raw=true "Imagen vídeo Syro")
+     ![Imagen vídeo Syro](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231939.png?raw=true)
      
 - La app tiene un ícono para dar al usuario la información de la misma
   
-  ![Icono información](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231734.png?raw=true "Icono información de la app")
+  ![Icono información](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231734.png?raw=true)
  
 
 ## Tecnologías utilizadas
