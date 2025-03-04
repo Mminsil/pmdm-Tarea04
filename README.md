@@ -9,19 +9,31 @@ Esta es una aplicación móvil que permite a los usuarios conocer todo sobre el 
 
 ## Características principales
 
-- Tiene una guía que nos recorre cada pestaña de la app explicando el contenido de cada una. La guía solo aparecerá cuando el usuario abre por primera vez la aplicación. En todas las pantallas de la misma puede elegir la opción "Saltar duía".
+- Tiene una guía que nos recorre cada pestaña de la app explicando el contenido de cada una. La guía solo aparecerá cuando el usuario abre por primera vez la aplicación. En todas las pantallas de la misma puede elegir la opción "Saltar guía".
   Esta es la pantalla de comienzo de la guía:
+  
   ![Pantalla inicio de la guía](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231834.png?raw=true)
+  
   Al pulsar el botón "Start" se abrirá los diferentes pasos de la guía:
+  
   ![Paso 1](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231844.png?raw=true)
+  
   Cuando el usuario da al botón "Siguiente" aparecerá el segundo paso de la guía:
+  
    ![Paso 2](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231854.png?raw=true)
+  
   El usuario debe clicar nuevamente en "Siguiente" para continuar con el paso 3:
+  
   ![Paso 3](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231902.png?raw=true)
+  
   El usuario debe hacer click en "Siguiente" para el paso 4:
+  
   ![Paso 4](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231910.png?raw=true)
+  
   Y por último clicar en Finalizar y aparecerá la pantalla final de la guía:
+  
    ![Paso 5](https://github.com/Mminsil/pmdm-Tarea04/blob/master/Captura%20de%20pantalla%202025-03-03%20231921.png?raw=true)
+  
   Al hacer click en el botón "start" se cerrará la guía y el usuario puede comenzar a usar la app.
   
 - La aplicación tiene 3 pestañas:
